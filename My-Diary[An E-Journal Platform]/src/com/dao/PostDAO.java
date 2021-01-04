@@ -93,6 +93,34 @@ public class PostDAO {
 		return post;
 	}
 	
+	public List<Posts> getAllPosts(){
+		List<Posts> list=new ArrayList<Posts>();
+		Posts post=null;
+		try {
+			String query="select p.pid,p.title,p.content,p.date,u.uname from posts p inner join user_info u where p.uid=u.uid";
+			PreparedStatement ps=conn.prepareStatement(query);
+			
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				post=new Posts();
+				
+				post.setPid(rs.getInt(1));
+				post.setTitle(rs.getString(2));
+				post.setContent(rs.getString(3));
+				post.setPdate(rs.getDate(4));
+				post.setuName(rs.getString(5));
+				list.add(post);
+				
+			}
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	
 	public boolean updatePost(int pid,String title,String content) {
 		boolean f=false;

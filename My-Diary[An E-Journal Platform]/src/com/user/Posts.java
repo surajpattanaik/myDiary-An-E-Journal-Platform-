@@ -3,6 +3,7 @@ package com.user;
 import java.util.Date;
 
 public class Posts {
+	private String uName;
 	private int pid;
 	private String title;
 	private String content;
@@ -19,6 +20,13 @@ public class Posts {
 	public Posts() {
 		super();
 	
+	}
+	
+	public String getuName() {
+		return uName;
+	}
+	public void setuName(String uName) {
+		this.uName = uName;
 	}
 	public int getPid() {
 		return pid;

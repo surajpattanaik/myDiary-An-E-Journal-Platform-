@@ -1,6 +1,6 @@
 <%@page import="com.user.UserDetails"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-custom navbar-custom">
-	<a class="navbar-brand" href="#"><i class="fa fa-book"
+	<a class="navbar-brand" href="index.jsp"><i class="fa fa-book"
 		aria-hidden="true"></i>MyDiary</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"

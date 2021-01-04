@@ -40,14 +40,14 @@ if (user2 == null) {
 	}
 	%>
 	<div class="container">
-		<h2 class="text-center">Your Posts</h2>
+		<h2 class="text-center">All Posts</h2>
 		<div class="row">
 			<div class="col-md-12">
 
 				<%
 					if (user2 != null) {
 					PostDAO ob = new PostDAO(DBConnecter.getConn());
-					List<Posts> list = ob.getPosts(user2.getUid());
+					List<Posts> list = ob.getAllPosts();
 					for (Posts post : list) {
 				%>
 
@@ -65,7 +65,7 @@ if (user2 == null) {
 						<h5 class="card-title"><%=post.getTitle()%></h5>
 						<p><%=post.getContent()%></p>
 						<p>
-							<b class="text-success">Published by:<%=user2.getName()%></b><br>
+							<b class="text-success">Published by:<%=post.getuName()%></b><br>
 							<b class="text-primary"></b>
 						</p>
 						<p>
@@ -74,17 +74,8 @@ if (user2 == null) {
 								class="text-primary"></b>
 
 						</p>
-						<div class="container text-center mt-2">
-							<a href="DeletePostServlet?post_id=<%=post.getPid()%>"
-								class="btn btn-danger">Delete</a> <a
-								href="editPost.jsp?post_id=<%=post.getPid()%>"
-								class="btn btn-primary  ">Edit</a>
-						</div>
 					</div>
 				</div>
-
-
-
 
 
 				<%
@@ -93,9 +84,8 @@ if (user2 == null) {
 				}
 				%>
 
-
 				<h2 class="text-center">
-					<a href="showAllPosts.jsp" style="color: black;">Show all posts</a>
+					<a href="showPosts.jsp" style="color: black;">Your Posts</a>
 				</h2>
 
 			</div>
