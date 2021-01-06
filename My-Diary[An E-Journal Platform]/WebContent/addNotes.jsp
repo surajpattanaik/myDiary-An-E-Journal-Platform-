@@ -2,15 +2,12 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="com.user.UserDetails"%>
 <%
-	UserDetails user2=(UserDetails)session.getAttribute("userD");
-	if(user2==null){
-		response.sendRedirect("login.jsp");
-		session.setAttribute("loginError", "please login to continue");
-	}
-	
-	
-	
-	%>
+	UserDetails user2 = (UserDetails) session.getAttribute("userD");
+if (user2 == null) {
+	response.sendRedirect("login.jsp");
+	session.setAttribute("loginError", "please login to continue");
+}
+%>
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +17,7 @@
 <%@include file="all_component/allcss.jsp"%>
 </head>
 <body style="background-color: #f6d6d9;">
-	<div class="container-fluid" >
+	<div class="container-fluid">
 		<%@include file="all_component/navbar.jsp"%>
 		<h1 class="text-center">Start Writing</h1>
 		<div class="container" style="height: 80vh;">
@@ -31,12 +28,14 @@
 					<form action="AddPostServlet" method="post">
 						<div class="form-group">
 
-							<% 
-						UserDetails user1=(UserDetails)session.getAttribute("userD");
-						if(user1!=null){%>
-							<input type="hidden" value="<%= user1.getUid()%>" name="uid">
-							<%}
-						%>
+							<%
+								UserDetails user1 = (UserDetails) session.getAttribute("userD");
+							if (user1 != null) {
+							%>
+							<input type="hidden" value="<%=user1.getUid()%>" name="uid">
+							<%
+								}
+							%>
 
 
 
@@ -55,6 +54,15 @@
 								required="required"></textarea>
 						</div>
 
+						<h4 class="text-center">Select visibility</h4>
+						<div class="radio text-center " style="color: #C71585;">
+							<label><input type="radio" name="optradio" checked value="1">public</label>
+						</div>
+						<div class="radio  text-center" style="color: #C71585;">
+							<label><input type="radio" name="optradio" value="0">private
+							</label>
+						</div>
+
 						<button type="submit" class="btn btn-primary badge-pill btn-block"
 							style="background-color: #C71585; border-color: #C71585;">Add</button>
 					</form>
@@ -69,12 +77,9 @@
 
 
 	<div class="container-fluid bg-dark mt-3">
-<p class="text-center text-white">
-Designed and Developed by Suraj Kr. Pattanaik
-</p>
-<p class="text-center text-white">
-&#169;SurajKr
-</p>
-</div>
+		<p class="text-center text-white">Designed and Developed by Suraj
+			Kr. Pattanaik</p>
+		<p class="text-center text-white">&#169;SurajKr</p>
+	</div>
 </body>
 </html>

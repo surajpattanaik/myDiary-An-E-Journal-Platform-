@@ -21,10 +21,11 @@ public class AddPostServlet extends HttpServlet {
 		int uid=Integer.parseInt(request.getParameter("uid"));
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
+		int vid=Integer.parseInt(request.getParameter("optradio"));
 		java.util.Date date=new java.util.Date();
 		java.sql.Date date1=new java.sql.Date(date.getTime());
 		PostDAO dao=new PostDAO(DBConnecter.getConn());
-		boolean f=dao.addPost(title,content,uid,date1);
+		boolean f=dao.addPost(title,content,uid,date1,vid);
 
 		if (f) {
 			response.sendRedirect("showPosts.jsp");

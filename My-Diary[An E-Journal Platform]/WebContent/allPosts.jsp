@@ -7,10 +7,12 @@
 <%@page import="com.user.Posts"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
+<%@page import="com.user.AdminDetails"%>
+
 <%
-	UserDetails user2 = (UserDetails) session.getAttribute("userD");
-if (user2 == null) {
-	response.sendRedirect("login.jsp");
+	AdminDetails admin2 = (AdminDetails) session.getAttribute("adminD");
+if (admin2 == null) {
+	response.sendRedirect("adminLogin.jsp");
 	session.setAttribute("loginError", "please login to continue");
 }
 %>
@@ -21,7 +23,7 @@ if (user2 == null) {
 <%@include file="all_component/allcss.jsp"%>
 </head>
 <body style="background-color: #f6d6d9;">
-	<%@include file="all_component/navbar.jsp"%>
+	<%@include file="all_component/adminNavbar.jsp"%>
 	<%
 		String updatedMSG = (String) session.getAttribute("updatedMSG");
 	String deletedMSG = (String) session.getAttribute("deletedMSG");
@@ -41,12 +43,12 @@ if (user2 == null) {
 	}
 	%>
 	<div class="container">
-		<h2 class="text-center">Public Posts</h2>
+		<h2 class="text-center">All Posts</h2>
 		<div class="row">
 			<div class="col-md-12">
 
 				<%
-					if (user2 != null) {
+					if (admin2 != null) {
 					PostDAO ob = new PostDAO(DBConnecter.getConn());
 					List<Posts> list = ob.getAllPosts();
 					for (Posts post : list) {
@@ -55,7 +57,6 @@ if (user2 == null) {
 						String uName = post.getuName();
 						Date date = post.getPdate();
 						String visibility = post.getVisibility();
-						if (visibility.equalsIgnoreCase("public")) {
 				%>
 
 
@@ -88,19 +89,8 @@ if (user2 == null) {
 
 						</p>
 						<div class="container text-center mt-2">
-							<div class="social">
-								<a href="http://www.whatsapp.com" id="share-wa"
-									class="sharer button"><i class="fa fa-3x fa-whatsapp"></i></a>
-								<a href="http://www.facebook.com" class="sharer button"><i
-									class="fa fa-3x fa-facebook-square"></i></a> <a
-									href="http://www.twitter.com" id="share-tw"
-									class="sharer button"><i class="fa fa-3x fa-twitter-square"></i></a>
-								<a href="http://www.linkedin.com" id="share-li"
-									class="sharer button"><i
-									class="fa fa-3x fa-linkedin-square"></i></a><a
-									href="http://www.gmail.com" id="share-em" class="sharer button"><i
-									class="fa fa-3x fa-envelope-square"></i></a>
-							</div>
+							<a href="AdminDeletePostServlet?post_id=<%=post.getPid()%>"
+								class="btn btn-danger">Delete</a>
 
 						</div>
 					</div>
@@ -110,24 +100,19 @@ if (user2 == null) {
 						}
 
 					}
-					}
 					%>
-
-					<h2 class="text-center">
-						<a href="showPosts.jsp" style="color: black;">Your Posts</a>
-					</h2>
 
 				</div>
 
 			</div>
-
-
 		</div>
 
-		<div class="container-fluid bg-dark">
-			<p class="text-center text-white">Designed and Developed by Suraj
-				Kr. Pattanaik</p>
-			<p class="text-center text-white">&#169;SurajKr</p>
-		</div>
+	</div>
+
+	<div class="container-fluid bg-dark">
+		<p class="text-center text-white">Designed and Developed by Suraj
+			Kr. Pattanaik</p>
+		<p class="text-center text-white">&#169;SurajKr</p>
+	</div>
 </body>
 </html>

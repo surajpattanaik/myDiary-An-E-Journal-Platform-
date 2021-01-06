@@ -1,6 +1,6 @@
 <%@page import="com.user.UserDetails"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-custom navbar-custom">
-	<a class="navbar-brand" href="index.jsp"><i class="fa fa-book"
+	<a class="navbar-brand" href="#"><i class="fa fa-book"
 		aria-hidden="true"></i>MyDiary</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
@@ -11,26 +11,27 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="home.jsp"><i
+			<li class="nav-item active"><a class="nav-link" href="adminHome.jsp"><i
 					class="fa fa-home" aria-hidden="true"></i>Home <span
 					class="sr-only">(current)</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="addNotes.jsp"
-				style="color: white;"><i class="fa fa-pencil-square-o"
-					aria-hidden="true"></i>Write</a></li>
+			<li class="nav-item"><a class="nav-link" href="allUsers.jsp"
+				style="color: white;">See All Users</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="showPosts.jsp"
-				style="color: white;">Read</a></li>
+			<li class="nav-item"><a class="nav-link" href="allPosts.jsp"
+				style="color: white;">View All Posts</a></li>
 		</ul>
+		
+		<%@page import="com.user.AdminDetails"%>
 
 		<%
-			UserDetails user = (UserDetails) session.getAttribute("userD");
-		if (user != null) {
+		AdminDetails admin = (AdminDetails) session.getAttribute("adminD");
+		if (admin != null) {
 		%>
 
 
 		<a href="" class="btn btn-light my-2 my-sm-0 mr-2" data-toggle="modal"
 			data-target="#exampleModal" type="submit" style="color: #C71585;"><i
-			class="fa fa-user" aria-hidden="true"></i><%=user.getName().split(" ")[0]%></a>
+			class="fa fa-user" aria-hidden="true"></i><%=admin.getName().split(" ")[0]%></a>
 		<a href="LogoutServlet" class="btn btn-light my-2 my-sm-0 mr-2"
 			type="submit" style="color: #C71585;"><i class="fa fa-user-plus"
 			aria-hidden="true"></i>Logout</a>
@@ -53,7 +54,7 @@
 	</div>
 
 	<%
-		if (user != null) {
+		if (admin != null) {
 	%>
 
 	<!-- Button trigger modal -->
@@ -65,7 +66,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div style="background-color: #FF69B4" class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Admin Details</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -81,12 +82,12 @@
 
 								<tr>
 									<th>Full Name</th>
-									<td><%=user.getName()%></td>
+									<td><%=admin.getName()%></td>
 								</tr>
 
 								<tr>
 									<th>Email</th>
-									<td><%=user.getEmail()%></td>
+									<td><%=admin.getEmail()%></td>
 								</tr>
 
 							</tbody>

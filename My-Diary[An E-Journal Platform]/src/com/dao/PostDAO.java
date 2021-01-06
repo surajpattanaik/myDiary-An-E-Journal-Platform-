@@ -19,15 +19,16 @@ public class PostDAO {
 		this.conn = conn;
 	}
 	
-	public boolean addPost(String title,String content,int uid,Date date) {
+	public boolean addPost(String title,String content,int uid,Date date,int vid) {
 		boolean f=false;
 		try {
-			String query="insert into posts(title,content,date,uid) values(?,?,?,?)";
+			String query="insert into posts(title,content,date,uid,vid) values(?,?,?,?,?)";
 			java.sql.PreparedStatement ps=conn.prepareStatement(query);
 			ps.setString(1,title);
 			ps.setString(2, content);
 			ps.setDate(3,(java.sql.Date)date);
 			ps.setInt(4,uid);
+			ps.setInt(5, vid);
 		int i=	ps.executeUpdate();
 		if(i==1) {
 			f=true;
@@ -44,7 +45,7 @@ public class PostDAO {
 		List<Posts> list=new ArrayList<Posts>();
 		Posts post=null;
 		try {
-			String query="select * from posts where uid=? order by pid desc";
+			String query="select p.pid,p.title,p.content,p.date,v.visibility from posts p,post_visibility v where uid=? and p.vid=v.vid order by pid desc";
 			PreparedStatement ps=conn.prepareStatement(query);
 			ps.setInt(1, uid);
 			
@@ -55,6 +56,7 @@ public class PostDAO {
 				post.setTitle(rs.getString(2));
 				post.setContent(rs.getString(3));
 				post.setPdate(rs.getDate(4));
+				post.setVisibility(rs.getString(5));
 				list.add(post);
 				
 			}
@@ -97,7 +99,7 @@ public class PostDAO {
 		List<Posts> list=new ArrayList<Posts>();
 		Posts post=null;
 		try {
-			String query="select p.pid,p.title,p.content,p.date,u.uname from posts p inner join user_info u where p.uid=u.uid";
+			String query="select p.pid,p.title,p.content,p.date,u.uname,v.visibility from posts p,user_info u,post_visibility v where p.uid=u.uid and p.vid=v.vid";
 			PreparedStatement ps=conn.prepareStatement(query);
 			
 			ResultSet rs=ps.executeQuery();
@@ -109,6 +111,7 @@ public class PostDAO {
 				post.setContent(rs.getString(3));
 				post.setPdate(rs.getDate(4));
 				post.setuName(rs.getString(5));
+				post.setVisibility(rs.getString(6));
 				list.add(post);
 				
 			}

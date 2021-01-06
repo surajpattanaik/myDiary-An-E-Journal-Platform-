@@ -9,6 +9,7 @@ public class Posts {
 	private String content;
 	private Date pdate;
 	private UserDetails user;
+	private String visibility;
 	public Posts(int pid, String title, String content, Date pdate, UserDetails user) {
 		super();
 		this.pid = pid;
@@ -58,5 +59,12 @@ public class Posts {
 	public void setUser(UserDetails user) {
 		this.user = user;
 	}
+	public String getVisibility() {
+		return visibility;
+	}
+	public void setVisibility(String visibility) {
+		this.visibility = visibility;
+	}
+	
 
 }

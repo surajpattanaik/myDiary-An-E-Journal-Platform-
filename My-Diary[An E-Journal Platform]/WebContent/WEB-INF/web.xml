@@ -21,6 +21,26 @@
         <url-pattern>/LoginServlet</url-pattern>
 </servlet-mapping>
 
+<servlet>
+        <servlet-name>als</servlet-name>
+        <servlet-class>com.servlet.AdminLoginServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+        <servlet-name>als</servlet-name>
+        <url-pattern>/AdminLoginServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+        <servlet-name>adps</servlet-name>
+        <servlet-class>com.servlet.AdminDeletePostServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+        <servlet-name>adps</servlet-name>
+        <url-pattern>/AdminDeletePostServlet</url-pattern>
+</servlet-mapping>
+
 
  <resource-ref>
       <description>DB Connection</description>

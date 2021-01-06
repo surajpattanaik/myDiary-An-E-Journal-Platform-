@@ -6,35 +6,20 @@
 <%@page import="com.db.DBConnecter"%>
 <%@page import="com.user.Posts"%>
 <%@page import="java.util.List"%>
-<%
-	UserDetails user2 = (UserDetails) session.getAttribute("userD");
-if (user2 == null) {
-	response.sendRedirect("login.jsp");
-	session.setAttribute("loginError", "please login to continue");
-}
-%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-<script src="https://cdn.jsdelivr.net/sharer.js/latest/sharer.min.js"></script>
 <meta charset="ISO-8859-1">
 <%@include file="all_component/allcss.jsp"%>
 </head>
 <body style="background-color: #f6d6d9;">
-	<%@include file="all_component/navbar.jsp"%>
+	<%@include file="all_component/adminNavbar.jsp"%>
 	<%
-		String updatedMSG = (String) session.getAttribute("updatedMSG");
+		String uName=request.getParameter("uname");
+	int uid=Integer.parseInt(request.getParameter("uid"));
 	String deletedMSG = (String) session.getAttribute("deletedMSG");
-	if (updatedMSG != null) {
 	%>
-	<div class="alert alert-success" role="alert"><%=updatedMSG%>
-	</div>
 	<%
-		session.removeAttribute("updatedMSG");
-	}
 	if (deletedMSG != null) {
 	%>
 	<div class="alert alert-success" role="alert"><%=deletedMSG%>
@@ -44,14 +29,13 @@ if (user2 == null) {
 	}
 	%>
 	<div class="container">
-		<h2 class="text-center">Your Posts</h2>
+		<h2 class="text-center">Posts by <%=uName%></h2>
 		<div class="row">
 			<div class="col-md-12">
 
 				<%
-					if (user2 != null) {
 					PostDAO ob = new PostDAO(DBConnecter.getConn());
-					List<Posts> list = ob.getPosts(user2.getUid());
+					List<Posts> list = ob.getPosts(uid);
 					for (Posts post : list) {
 				%>
 
@@ -69,7 +53,7 @@ if (user2 == null) {
 						<h5 class="card-title"><%=post.getTitle()%></h5>
 						<p><%=post.getContent()%></p>
 						<p>
-							<b class="text-success">Published by:<%=user2.getName()%></b><br>
+							<b class="text-success">Published by:<%=uName%></b><br>
 							<b class="text-primary"></b>
 						</p>
 						<p>
@@ -80,30 +64,14 @@ if (user2 == null) {
 						</p>
 						<p>
 
-							<b class="text-success">Visibility:<%=post.getVisibility()%></b><br>
-							<b class="text-primary"></b>
+							<b class="text-success">Visibility:<%=post.getVisibility()%></b><br> <b
+								class="text-primary"></b>
 
 						</p>
-
+						
 						<div class="container text-center mt-2">
-							<a href="DeletePostServlet?post_id=<%=post.getPid()%>"
-								class="btn btn-danger">Delete</a> <a
-								href="editPost.jsp?post_id=<%=post.getPid()%>"
-								class="btn btn-primary">Edit</a>
-						</div>
-						<div class="container text-center mt-2">
-							<div class="social">
-								<a href="http://www.whatsapp.com" id="share-wa" class="sharer button"><i
-									class="fa fa-3x fa-whatsapp"></i></a> <a href="http://www.facebook.com"
-									class="sharer button"><i
-									class="fa fa-3x fa-facebook-square"></i></a> <a href="http://www.twitter.com"
-									id="share-tw" class="sharer button"><i
-									class="fa fa-3x fa-twitter-square"></i></a> <a href="http://www.linkedin.com"
-									id="share-li" class="sharer button"><i
-									class="fa fa-3x fa-linkedin-square"></i></a><a href="http://www.gmail.com"
-									id="share-em" class="sharer button"><i
-									class="fa fa-3x fa-envelope-square"></i></a>
-							</div>
+							<a href="AdminDeletePostServlet?post_id=<%=post.getPid()%>"
+								class="btn btn-danger">Delete</a>
 
 						</div>
 					</div>
@@ -116,14 +84,8 @@ if (user2 == null) {
 				<%
 					}
 
-				}
+				
 				%>
-
-
-				<h2 class="text-center">
-					<a href="showAllPosts.jsp" style="color: black;">Show all
-						public posts</a>
-				</h2>
 
 			</div>
 

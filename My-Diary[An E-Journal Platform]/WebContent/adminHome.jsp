@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+	<%@page import="com.user.AdminDetails"%>
 	<%
-	UserDetails user2=(UserDetails)session.getAttribute("userD");
-	if(user2==null){
-		response.sendRedirect("login.jsp");
+	AdminDetails admin2=(AdminDetails)session.getAttribute("adminD");
+	if(admin2==null){
+		response.sendRedirect("adminLogin.jsp");
 		session.setAttribute("loginError", "please login to continue");
-	}	
+	}
+	
+	
+	
 	%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +21,7 @@
 	<%@include file="all_component/allcss.jsp"%>
 
 	<div class="container-fluid">
-		<%@include file="all_component/navbar.jsp"%>
+		<%@include file="all_component/adminNavbar.jsp"%>
 		<div class="card py-5" style="background-color:#f6d6d9; height: 85vh;">
 			<div class="card-body text-center">
 				<img alt="" src="images/pen.png" class="img-fluid mx-auto"

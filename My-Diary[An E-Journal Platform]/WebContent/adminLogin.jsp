@@ -7,7 +7,7 @@
 <title>Login</title>
 <%@include file="all_component/allcss.jsp"%>
 </head>
-<body >
+<body>
 	<%@include file="all_component/navbar.jsp"%>
 	<div class="container-fluid div-color" style="height: 85vh;">
 		<div class="row">
@@ -18,8 +18,8 @@
 						<i class="fa fa-user-plus fa-3x" aria-hidden="true"></i>
 						<h4>Login</h4>
 						<div class="card-body">
-						     
-							<form action="LoginServlet" method="post">
+
+							<form action="AdminLoginServlet" method="post">
 								<%
 								String failedMsg = (String) session.getAttribute("failed");
 
@@ -31,6 +31,7 @@
 									session.removeAttribute("failed");
 								}
 								%>
+
 								<%
 								String withoutLogin=(String)session.getAttribute("loginError");
 								if(withoutLogin!=null){%>
@@ -43,8 +44,8 @@
 									session.removeAttribute("loginError");
 								}
 								%>
-								
-								
+
+
 								<%
 								String logoutMSG=(String)session.getAttribute("logoutMSG");
 								if(logoutMSG!=null){%>
@@ -56,33 +57,34 @@
 									session.removeAttribute("logoutMSG");
 								}
 								%>
-								
-								
-			
-								
-								
-								
-								
-								
-								<label>Enter E-mail</label>
+
+
+
+
+
+
+
+
+								<label>Admin E-mail</label>
 								<div class="form-group">
 									<input type="email" class="form-control"
 										id="exampleInputEmail1" aria-describedby="emailHelp"
-										placeholder="E-mail" name="email">
+										placeholder="E-mail" name="adminemail">
 
 								</div>
-								<label>Enter Password</label>
+								<label>Admin Password</label>
 								<div class="form-group">
 									<label for="exampleInputPassword1"></label> <input
 										type="password" class="form-control"
-										id="exampleInputPassword1" placeholder="Password" name="pass">
+										id="exampleInputPassword1" placeholder="Password"
+										name="adminpass">
 								</div>
 
 								<button type="submit"
 									class="btn btn-primary badge-pill btn-block"
-									style="background-color: #C71585; border-color: #C71585;">Submit</button><br><br>
-									<h5>Or</h5>
-									<h5 class="form-control"><a href="adminLogin.jsp">login as Admin</a></h5>
+									style="background-color: #C71585; border-color: #C71585;">Submit</button>
+								<br>
+								<br>
 							</form>
 						</div>
 					</div>
@@ -91,12 +93,9 @@
 		</div>
 	</div>
 	<div class="container-fluid bg-dark">
-<p class="text-center text-white">
-Designed and Developed by Suraj Kr. Pattanaik
-</p>
-<p class="text-center text-white">
-&#169;SurajKr
-</p>
-</div>
+		<p class="text-center text-white">Designed and Developed by Suraj
+			Kr. Pattanaik</p>
+		<p class="text-center text-white">&#169;SurajKr</p>
+	</div>
 </body>
 </html>

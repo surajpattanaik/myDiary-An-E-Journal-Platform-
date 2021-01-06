@@ -3,6 +3,7 @@ package com.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,33 +13,34 @@ import javax.servlet.http.HttpSession;
 
 import com.dao.UserDAO;
 import com.db.DBConnecter;
+import com.user.AdminDetails;
 import com.user.UserDetails;
 
-public class LoginServlet extends HttpServlet {
+public class AdminLoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String email = request.getParameter("email");
-		String password = request.getParameter("pass");
+		String email = request.getParameter("adminemail");
+		String password = request.getParameter("adminpass");
 
-		UserDetails user = new UserDetails();
-		user.setEmail(email);
-		user.setPassword(password);
+		AdminDetails admin = new AdminDetails();
+		admin.setEmail(email);
+		admin.setPassword(password);
 
 		UserDAO dao = new UserDAO(DBConnecter.getConn());
-		UserDetails user1 = dao.loginUser(user);
+		AdminDetails admin1 = dao.loginAdmin(admin);
 		HttpSession session;
-		if (user1 != null) {
+		if (admin1 != null) {
 			session = request.getSession();
-			session.setAttribute("userD", user1);
-			response.sendRedirect("home.jsp");
+			session.setAttribute("adminD", admin1);
+			response.sendRedirect("adminHome.jsp");
 		} else {
 			session = request.getSession();
 			session.setAttribute("failed", "failed");
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("adminLogin.jsp");
 		}
 		
 		
